@@ -8,7 +8,7 @@ namespace RPG.Combat
 {
     public class fighter : MonoBehaviour,IAction
     {
-        Transform target;
+        Health target;
 
         [SerializeField] float weaponRange = 2f,handDamage = 30f;
         float timeSinceLastAttack = 0;
@@ -16,13 +16,18 @@ namespace RPG.Combat
         void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
-                
-            if (target == null) return;
-            if (target != null && !GetIsInRange())
+
+            if (target == null)
             {
-                GetComponent<mover>().MoveTo(target.position);
+                GetComponent<Animator>().SetTrigger("stopAttack");
+                return;
             }
-            else
+            if (target.IsDead()) return;
+            if (!GetIsInRange()) // not in range of target
+            {
+                GetComponent<mover>().MoveTo(target.transform.position);
+            }
+            else // target in range
             {
                 GetComponent<mover>().Cancel();
                 AttackBehaviour();
@@ -46,19 +51,19 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
         }
 
         public void Attack(CombatTarget combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            target = combatTarget.transform;
+            target = combatTarget.GetComponent<Health>();
         }
 
         public void Cancel()
         {
+            GetComponent<Animator>().SetTrigger("stopAttack");
             target = null;
-
         }
 
         
