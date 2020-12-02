@@ -927,7 +927,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 620450866589710950, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
   m_PrefabInstance: {fileID: 620450867671279529}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1392734675
+--- !u!114 &1392734677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -939,6 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3cb53c58afaaf4fa3c69233ab77644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRange: 2
 --- !u!1 &2139207085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +1002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900466, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_StoppingDistance
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Combat;
 using UnityEngine.AI;
 
 namespace RPG.Movement
@@ -39,6 +40,12 @@ namespace RPG.Movement
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
             GetComponent<Animator>().SetFloat("forwardSpeed", speed);
+        }
+
+        public void StartMoveAction(Vector3 destination)
+        {
+            GetComponent<fighter>().Cancel();
+            MoveTo(destination);
         }
 
     }
