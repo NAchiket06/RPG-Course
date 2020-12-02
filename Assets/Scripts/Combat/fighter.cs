@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class fighter : MonoBehaviour
+    public class fighter : MonoBehaviour,IAction
     {
         Transform target;
 
@@ -22,7 +22,7 @@ namespace RPG.Combat
             }
             else
             {
-                GetComponent<mover>().Stop();
+                GetComponent<mover>().Cancel();
             }
         }
 
