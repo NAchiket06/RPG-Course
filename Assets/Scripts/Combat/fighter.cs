@@ -29,6 +29,7 @@ namespace RPG.Combat
             }
             else // target in range
             {
+                
                 GetComponent<mover>().Cancel();
                 AttackBehaviour();
             }
@@ -38,6 +39,7 @@ namespace RPG.Combat
         {
             if (timeSinceLastAttack > timeBetweenAttacks)
             {
+                transform.LookAt(target.transform);
                 GetComponent<Animator>().SetTrigger("attack");
                 timeSinceLastAttack = 0f;
             }
