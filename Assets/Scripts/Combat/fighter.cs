@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RPG.Movement;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,21 +7,27 @@ namespace RPG.Combat
 {
     public class fighter : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        Transform target;
 
-        }
+        [SerializeField] float weaponRange = 2f;
 
-        // Update is called once per frame
+
         void Update()
         {
-
+            bool isInRange = Vector3.Distance(transform.position, target.position) < weaponRange;
+            if (target != null && !isInRange)
+            {
+                GetComponent<mover>().MoveTo(target.position);
+            }
+            else
+            {
+                GetComponent<mover>().Stop();
+            }
         }
 
-        public void Attack()
+        public void Attack(CombatTarget combatTarget)
         {
-            print("Attacking");
+            target = combatTarget.transform;
         }
     }
 
