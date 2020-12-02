@@ -8,7 +8,7 @@ namespace RPG.Core
 {
     public class FollowCamera : MonoBehaviour
     {
-        public  Transform target;
+        public Transform target;
         public Vector3 offset;
 
         void Start()
