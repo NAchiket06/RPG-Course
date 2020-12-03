@@ -1,4 +1,5 @@
 ﻿using RPG.Combat;
+using RPG.Core;
 using RPG.Movement;
 using System;
 using System.Collections;
@@ -9,10 +10,18 @@ namespace RPG.Control
 {
     public class playerController : MonoBehaviour
     {
+        Health health;
 
-
+        private void Start()
+        {
+            health = GetComponent<Health>();
+        }
         void Update()
         {
+            if (health.IsDead())
+            {
+                return;
+            }
             if(InterractWithcombat())  return;
             if(InterractWithMovement()) return;
         }

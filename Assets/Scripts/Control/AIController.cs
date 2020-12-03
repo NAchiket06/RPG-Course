@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using RPG.Combat;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Control
@@ -11,15 +12,22 @@ namespace RPG.Control
 
         fighter fight;
         GameObject player;
+        Health health;
 
         private void Start()
         {
+            health = GetComponent<Health>();
             fight = GetComponent<fighter>();
             player = GameObject.FindGameObjectWithTag("Player");
         }
 
         private void Update()
         {
+
+            if(health.IsDead())
+            {
+                return;
+            }
             if (InAttackRange() && fight.canAttack(player) )
             {
                 fight.Attack(player);
