@@ -865,6 +865,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1966125043537731131, guid: cd97a03072b2c1e41ad62f4be6f4da8e, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd97a03072b2c1e41ad62f4be6f4da8e, type: 3}
 --- !u!1001 &1762508467
@@ -934,8 +938,35 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2796390253724109704, guid: 117da2f7097abc946aeccf589cd29626, type: 3}
+      propertyPath: handDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481917102869201887, guid: 117da2f7097abc946aeccf589cd29626, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 117da2f7097abc946aeccf589cd29626, type: 3}
+--- !u!1 &1933286414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1745572241681018445, guid: cd97a03072b2c1e41ad62f4be6f4da8e, type: 3}
+  m_PrefabInstance: {fileID: 1528081287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1933286415
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933286414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.0030918
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.86491036, z: 0}
 --- !u!1 &2139207085
 GameObject:
   m_ObjectHideFlags: 0
