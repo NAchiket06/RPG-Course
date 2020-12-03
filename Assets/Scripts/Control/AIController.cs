@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RPG.Combat;
 using RPG.Core;
@@ -10,6 +11,11 @@ namespace RPG.Control
     public class AIController : MonoBehaviour
     {
         [SerializeField] float chaseDistance = 5f,timeSinceLastSawPlayer = Mathf.Infinity,suspicionTime=5f;
+        
+        [SerializeField] PatrolPath patrolPath;
+        float waypointTolerance = 1f, dwellTime = 2f,timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        int currentWaypointIndex = 0;
+
         [SerializeField] Vector3 guardPosition;
 
         fighter fight;
@@ -19,6 +25,7 @@ namespace RPG.Control
 
         private void Start()
         {
+            
             guardPosition = transform.position;
             health = GetComponent<Health>();
             fight = GetComponent<fighter>();
@@ -28,29 +35,35 @@ namespace RPG.Control
         private void Update()
         {
 
-            if(health.IsDead())
+            if (health.IsDead())
             {
                 return;
             }
-            if (InAttackRange() && fight.canAttack(player) )
+            if (InAttackRange() && fight.canAttack(player))
             {
-                timeSinceLastSawPlayer = 0f;
                 AttackBehviour();
             }
-            else if(timeSinceLastSawPlayer < suspicionTime)
+            else if (timeSinceLastSawPlayer < suspicionTime)
             {
                 SuspiciousBehaviour();
             }
             else
             {
-                GuardBehaviour();
+                PatrolBehaviour();
             }
-            timeSinceLastSawPlayer += Time.deltaTime;
+            UpdateTimes();
 
+        }
+
+        private void UpdateTimes()
+        {
+            timeSinceLastSawPlayer += Time.deltaTime;
+            timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
         private void AttackBehviour()
         {
+            timeSinceLastSawPlayer = 0f;
             fight.Attack(player);
         }
 
@@ -61,12 +74,40 @@ namespace RPG.Control
 
 
 
-        private void GuardBehaviour()
+        private void PatrolBehaviour()
         {
-            GetComponent<mover>().MoveTo(guardPosition);
+            Vector3 nextPosition = guardPosition;
+
+            if (patrolPath != null)
+            {
+                if (AtWaypoint())
+                {
+                    timeSinceArrivedAtWaypoint = 0f;
+                    CycleWaypoint();
+                }
+                nextPosition = GetCurrentWaypoint();
+            }
+            if (timeSinceArrivedAtWaypoint > dwellTime)
+            {
+                GetComponent<mover>().StartMoveAction(nextPosition);
+
+            }
+        }
+        private Vector3 GetCurrentWaypoint()
+        {
+            return patrolPath.GetWaypoint(currentWaypointIndex);
         }
 
-     
+        private void CycleWaypoint()
+        {
+            currentWaypointIndex = patrolPath.getNextIndex(currentWaypointIndex);
+        }
+
+        private bool AtWaypoint()
+        {
+            float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
+            return distanceToWaypoint < waypointTolerance;
+        }
 
         private bool InAttackRange()
         {
