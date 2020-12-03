@@ -17,6 +17,8 @@ namespace RPG.Control
         int currentWaypointIndex = 0;
 
         [SerializeField] Vector3 guardPosition;
+        [Range(0,1)]
+        [SerializeField] float patrolSpeedFraction = 0.6f;
 
         fighter fight;
         GameObject player;
@@ -89,7 +91,7 @@ namespace RPG.Control
             }
             if (timeSinceArrivedAtWaypoint > dwellTime)
             {
-                GetComponent<mover>().StartMoveAction(nextPosition);
+                GetComponent<mover>().StartMoveAction(nextPosition,patrolSpeedFraction);
 
             }
         }

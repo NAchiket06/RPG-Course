@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using RPG.Core;
 using UnityEngine;
-using RPG.Core;
 using UnityEngine.AI;
 
 namespace RPG.Movement
@@ -12,6 +9,7 @@ namespace RPG.Movement
         NavMeshAgent agent;
         Health health;
 
+        [SerializeField] float maxSpeed = 4.5f;
         void Start()
         {
             health = GetComponent<Health>();
@@ -24,9 +22,10 @@ namespace RPG.Movement
             UpdateAnimator();
         }
 
-        public void MoveTo(Vector3 destination)
+        public void MoveTo(Vector3 destination,float speedFraction)
         {
             agent.isStopped = false;
+            agent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
             agent.SetDestination(destination);
         }
 
@@ -43,10 +42,10 @@ namespace RPG.Movement
             GetComponent<Animator>().SetFloat("forwardSpeed", speed);
         }
 
-        public void StartMoveAction(Vector3 destination)
+        public void StartMoveAction(Vector3 destination,float speedFraction)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            MoveTo(destination);
+            MoveTo(destination,speedFraction);
         }
 
 
