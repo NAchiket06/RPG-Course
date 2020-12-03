@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &3481917102869201887
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719706768030186494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.9057283
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9261813, z: 0}
+--- !u!114 &4857180008835898018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719706768030186494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a67a6a4c8bc30b4f87631bfed82bda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 5
+  timeSinceLastSawPlayer: Infinity
+  suspicionTime: 5
+  guardPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5215575787285073201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,20 +42,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8ff67cbe2423c48897c2e71a942bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &3481917102869201887
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2719706768030186494}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 1.9057283
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9261813, z: 0}
 --- !u!1001 &113624641971615550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90,21 +106,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 620450866803900466, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 620450866803900469, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalRotation.x
@@ -112,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.8889322
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalRotation.z
@@ -120,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.45803872
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_RootOrder
@@ -132,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 125.479
       objectReference: {fileID: 0}
     - target: {fileID: 620450866803900478, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -144,7 +164,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 859299386957705289, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 859299386957705289, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4078634854778544489, guid: d618e6b13db5b424f9087fe049e56435, type: 3}
       propertyPath: health
