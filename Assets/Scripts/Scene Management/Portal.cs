@@ -17,6 +17,7 @@ namespace RPG.SceneManagement
         [SerializeField] int sceneToLoad = -1;
         [SerializeField] Transform SpawnPoint;
         [SerializeField] DestinationIdentifier destinationIdentifier;
+        [SerializeField] float fadeOutTime = 1f, FadeInTime = 2f, FadeWaitTime = 0.5f;
         // Start is called before the first frame update
         void Start()
         {
@@ -47,12 +48,16 @@ namespace RPG.SceneManagement
                 Debug.Log("Invalid sceneToLoad Index");
                 yield break;
             }
+
+            Fader fader = FindObjectOfType<Fader>();
+            yield return fader.FadeOut(fadeOutTime);
             DontDestroyOnLoad(gameObject);
-            //SceneManager.LoadScene(sceneToLoad);
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
+            yield return new WaitForSeconds(FadeWaitTime);
+            yield return fader.FadeIn(FadeInTime);
 
             Destroy(gameObject);
         }
