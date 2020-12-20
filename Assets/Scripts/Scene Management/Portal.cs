@@ -24,6 +24,7 @@ namespace RPG.SceneManagement
             if (other.CompareTag("Player"))
             {
                 StartCoroutine(Transition());
+                
             }
 
         }
@@ -52,6 +53,7 @@ namespace RPG.SceneManagement
             Portal otherPortal = GetOtherPortal();
 
             UpdatePlayer(otherPortal);
+            savingWrapper.Save();
 
             yield return new WaitForSeconds(FadeWaitTime);     // wait for specific time  
             yield return fader.FadeIn(FadeInTime);        // start fade in 
@@ -62,8 +64,10 @@ namespace RPG.SceneManagement
         private void UpdatePlayer(Portal otherPortal)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<NavMeshAgent>().enabled = false;
             player.GetComponent<NavMeshAgent>().Warp(otherPortal.SpawnPoint.position);
             player.transform.rotation = otherPortal.SpawnPoint.rotation;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         private Portal GetOtherPortal()
