@@ -18,17 +18,6 @@ namespace RPG.SceneManagement
         [SerializeField] Transform SpawnPoint;
         [SerializeField] DestinationIdentifier destinationIdentifier;
         [SerializeField] float fadeOutTime = 1f, FadeInTime = 2f, FadeWaitTime = 0.5f;
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -39,7 +28,6 @@ namespace RPG.SceneManagement
 
         }
 
-
         private IEnumerator Transition()
         {
 
@@ -49,15 +37,24 @@ namespace RPG.SceneManagement
                 yield break;
             }
 
-            Fader fader = FindObjectOfType<Fader>();
-            yield return fader.FadeOut(fadeOutTime);
             DontDestroyOnLoad(gameObject);
-            yield return SceneManager.LoadSceneAsync(sceneToLoad);
+            Fader fader = FindObjectOfType<Fader>();
+            yield return fader.FadeOut(fadeOutTime);  // start fade out
+
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+            savingWrapper.Save();
+
+            yield return SceneManager.LoadSceneAsync(sceneToLoad);  // wait until scene loads
+
+            savingWrapper.Load();
+
 
             Portal otherPortal = GetOtherPortal();
+
             UpdatePlayer(otherPortal);
-            yield return new WaitForSeconds(FadeWaitTime);
-            yield return fader.FadeIn(FadeInTime);
+
+            yield return new WaitForSeconds(FadeWaitTime);     // wait for specific time  
+            yield return fader.FadeIn(FadeInTime);        // start fade in 
 
             Destroy(gameObject);
         }
