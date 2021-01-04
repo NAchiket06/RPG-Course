@@ -22,7 +22,7 @@ namespace RPG.Combat
 
             if (!GetIsInRange())
             {
-                GetComponent<mover>().MoveTo(target.transform.position,1f);
+                GetComponent<mover>().MoveTo(target.transform.position, 1f);
             }
             else
             {
@@ -40,7 +40,6 @@ namespace RPG.Combat
                 TriggerAttack();
                 timeSinceLastAttack = 0;
             }
-            
         }
 
         private void TriggerAttack()
@@ -61,7 +60,7 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
         }
 
-        public bool canAttack(GameObject combatTarget)
+        public bool CanAttack(GameObject combatTarget)
         {
             if (combatTarget == null) { return false; }
             Health targetToTest = combatTarget.GetComponent<Health>();

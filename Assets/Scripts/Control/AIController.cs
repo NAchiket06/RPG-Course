@@ -41,7 +41,7 @@ namespace RPG.Control
             {
                 return;
             }
-            if (InAttackRange() && fight.canAttack(player))
+            if (InAttackRange() && fight.CanAttack(player))
             {
                 AttackBehviour();
             }
